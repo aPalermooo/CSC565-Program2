@@ -1,3 +1,16 @@
+################################################
+#   Name:           Webserver.py
+#   Description:    A low-level web server that listens on a specified socket for incoming requests, and serves them from a specified directory
+#   Author:         Xander Palermo <ajp2s@missouristate.edu>
+#   Date:           7 November 2025
+#
+#   Class:          CSC 565 Computer NetworkingFALL 2025
+#   Professor:      Dr. Hui Liu
+#   Assignment:     Socket Programming Assignment II
+################################################
+
+
+
 # Import socket module
 from socket import *
 import sys
@@ -50,13 +63,13 @@ while True:
 
         print(message)
         print()
-                #Fill in end
+        #Fill in end
+
         # Because the extracted path of the HTTP request includes
         # a character '\', we read the path from the second character
         #Fill in start
 
         path = message[message.find('/')+1:message.find(' ',message.find('/'))]
-        print(f"Encoding {path}...")
 
         if path.count('/') > 0:
             #Handle malicious requests
@@ -70,16 +83,19 @@ while True:
 
         path = "static/" + path
 
-
-
         #Fill in end
+
         # Store the entire content of the requested file in a temporary buffer
         #Fill in start
 
-        requested_document = open(path)
+        print(f"Encoding and sending {path}...")
+
+
+        requested_document = open(path) # if not exist -> Throws IOError
         document = requested_document.read()
 
         #Fill in end
+
         # Send the HTTP response header line to the connection socket
         connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
  
@@ -93,7 +109,7 @@ while True:
         # Close the client connection socket
         connectionSocket.close()
 
-    except IOError:
+    except IOError: # File does not exist
 
             print("Not found...\nClosing Connection\n\n")
 
@@ -101,6 +117,7 @@ while True:
             #Fill in start
             connectionSocket.send("HTTP/1.1 404 NOT FOUND\r\n\r\n".encode())
             #Fill in end
+
             # Close the client connection socket
             connectionSocket.close()
 

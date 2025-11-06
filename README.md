@@ -4,7 +4,7 @@ Xander Palermo <ajp2s@missouristate.edu>
 
 CSC565 Computer Networking Fall 2025
 
-Dr. Hiu Liu
+Dr. Hui Liu
 
 7 November 2025
 
